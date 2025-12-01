@@ -1,14 +1,14 @@
-import threading
-import time
-import queue
-from config import Config
-from modules.speech.speech_processor import SpeechProcessor
-from modules.vision.vision_processor import VisionProcessor
-from modules.llm.llm_processor import LLMProcessor
-from modules.motion.motion_controller import MotionController
-from modules.sensors.sensor_manager import SensorManager
+"""
+ANU 6.0 Main Entry Point
+Uses Integration Manager to coordinate all systems
+"""
 
-class HumanoidRobot:
+from core.integration_manager import IntegrationManager
+
+if __name__ == "__main__":
+    # Create and start integration manager
+    robot = IntegrationManager()
+    robot.start()
     def __init__(self):
         self.config = Config()
         self.running = False

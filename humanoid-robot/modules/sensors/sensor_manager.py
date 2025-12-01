@@ -47,7 +47,7 @@ class SensorManager:
             # Send data to output queue
             self.output_queue.put(self.sensor_data.copy())
             
-            time.sleep(0.1)  Read sensors 10 times per second
+            time.sleep(0.1)  # Read sensors 10 times per second
     
     def read_ultrasonic(self):
         """Read distance from ultrasonic sensor"""

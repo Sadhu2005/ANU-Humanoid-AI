@@ -1,10 +1,79 @@
 # Virtual Environment
 venv/
+.venv/
+env/
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
 
 # Environment variables
 .env
+.env.local
 
-# Optional: If data/models are large and managed elsewhere
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Model files (large)
+models/
+*.pkl
+*.h5
+*.pt
+*.pth
+*.onnx
+
+# Logs
+logs/
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data directories (optional - uncomment if not tracking)
 # data/
-# models/
+# datasets/
+
+# Build files
+build/
+dist/
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Large media files (use Git LFS if needed)
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.wmv
+# Note: Anu-website/Ground Work.mp4 is tracked for demo purposes
+# Uncomment below if you want to exclude it:
+# Anu-website/*.mp4
+
+# GitHub Pages
+.github/workflows/*.yml.bak
+
+# Large media files (use Git LFS if needed)
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.wmv
+# Uncomment if not tracking video files
+# Anu-website/*.mp4

@@ -13,6 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
     <style>
         :root {
             --primary: #6366f1;
@@ -308,7 +309,7 @@
     <div id="particles-js"></div>
 
     <!-- Navigation -->
-    <nav class="nav-blur fixed top-0 w-full z-50 px-6 py-4">
+    <nav class="nav-enhanced nav-blur fixed top-0 w-full z-50 px-6 py-4" id="mainNav">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center space-x-3">
                 <div class="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center pulse-glow">
@@ -319,14 +320,31 @@
                 </h1>
             </div>
             
-            <div class="hidden md:flex space-x-8">
+            <div class="hidden md:flex space-x-8 items-center">
                 <a href="#home" class="hover:text-primary transition-colors">Home</a>
                 <a href="#problem" class="hover:text-primary transition-colors">Challenge</a>
                 <a href="#solution" class="hover:text-primary transition-colors">Solution</a>
+                <a href="#features" class="hover:text-primary transition-colors">Features</a>
                 <a href="#technology" class="hover:text-primary transition-colors">Technology</a>
+                <a href="architecture.html" class="hover:text-primary transition-colors">Architecture</a>
                 <a href="#impact" class="hover:text-primary transition-colors">Impact</a>
                 <a href="#roadmap" class="hover:text-primary transition-colors">Roadmap</a>
                 <a href="#team" class="hover:text-primary transition-colors">Team</a>
+                <div class="relative group">
+                    <a href="#docs" class="hover:text-primary transition-colors">Documentation <i class="fas fa-chevron-down text-xs"></i></a>
+                    <div class="absolute top-full left-0 mt-2 w-64 bg-dark border border-primary/20 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                        <a href="../PROJECT_DOCUMENTATION.md" class="block px-4 py-3 hover:bg-primary/10 border-b border-primary/10">Project Docs</a>
+                        <a href="../RESEARCH_DOCUMENTATION.md" class="block px-4 py-3 hover:bg-primary/10 border-b border-primary/10">Research</a>
+                        <a href="../PRODUCT_DOCUMENTATION.md" class="block px-4 py-3 hover:bg-primary/10 border-b border-primary/10">Products</a>
+                        <a href="../SETUP_GUIDE.md" class="block px-4 py-3 hover:bg-primary/10">Setup Guide</a>
+                    </div>
+                </div>
+                <a href="https://github.com/Sadhu2005/ANU-AI-Humanoid" target="_blank" 
+                   class="px-4 py-2 bg-gradient-to-r from-gray-800 to-gray-700 rounded-lg hover:from-gray-700 hover:to-gray-600 transition-all flex items-center space-x-2 border border-primary/30 hover:border-primary/60"
+                   title="Access GitHub Repository">
+                    <i class="fab fa-github"></i>
+                    <span>GitHub</span>
+                </a>
             </div>
 
             <button id="mobileMenuBtn" class="md:hidden">
@@ -348,6 +366,9 @@
             <a href="#impact" class="block hover:text-primary transition-colors">Impact</a>
             <a href="#roadmap" class="block hover:text-primary transition-colors">Roadmap</a>
             <a href="#team" class="block hover:text-primary transition-colors">Team</a>
+            <a href="../PROJECT_DOCUMENTATION.md" class="block hover:text-primary transition-colors">📚 Project Documentation</a>
+            <a href="../RESEARCH_DOCUMENTATION.md" class="block hover:text-primary transition-colors">🔬 Research</a>
+            <a href="../PRODUCT_DOCUMENTATION.md" class="block hover:text-primary transition-colors">📦 Products</a>
         </div>
     </div>
 
@@ -374,6 +395,11 @@
                 </button>
                 <a href="#problem" class="px-8 py-4 border-2 border-primary rounded-full font-semibold hover:bg-primary hover:text-white transition-all">
                     <i class="fas fa-book mr-2"></i> Learn More
+                </a>
+                <a href="https://github.com/Sadhu2005/ANU-AI-Humanoid" target="_blank" 
+                   class="px-8 py-4 bg-gradient-to-r from-gray-800 to-gray-700 rounded-full font-semibold hover:from-gray-700 hover:to-gray-600 transition-all flex items-center justify-center border border-primary/30 hover:border-primary/60"
+                   title="Access GitHub Repository - View Code, Contribute, Fork">
+                    <i class="fab fa-github mr-2"></i> View on GitHub
                 </a>
             </div>
             
@@ -548,6 +574,68 @@
                 </div>
             </div>
 
+            <!-- Home Automation Features -->
+            <div class="mt-16 scroll-reveal">
+                <h3 class="text-3xl font-bold text-center mb-8">
+                    <span class="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                        Home Automation & Safety Features
+                    </span>
+                </h3>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- Alexa-like Assistant -->
+                    <div class="feature-card p-6 rounded-2xl scroll-reveal group cursor-pointer">
+                        <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-microphone-alt text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Voice Assistant</h3>
+                        <p class="text-gray-400 text-sm mb-3">
+                            Alexa-like voice control for smart home devices. Control lights, fans, TV, and more with voice commands.
+                        </p>
+                        <ul class="text-gray-400 text-xs space-y-1">
+                            <li>✓ Voice-controlled home automation</li>
+                            <li>✓ Smart device integration</li>
+                            <li>✓ Natural language commands</li>
+                            <li>✓ Multi-language support</li>
+                        </ul>
+                    </div>
+
+                    <!-- Mobile CCTV Security -->
+                    <div class="feature-card p-6 rounded-2xl scroll-reveal group cursor-pointer">
+                        <div class="w-16 h-16 bg-gradient-to-r from-red-500 to-orange-500 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-video text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Mobile CCTV Security</h3>
+                        <p class="text-gray-400 text-sm mb-3">
+                            Patrolling robot with 360° vision. Automatically detects safety issues and alerts admin/authorities.
+                        </p>
+                        <ul class="text-gray-400 text-xs space-y-1">
+                            <li>✓ Autonomous patrolling</li>
+                            <li>✓ Intrusion detection</li>
+                            <li>✓ Real-time alerts to admin</li>
+                            <li>✓ Emergency response system</li>
+                        </ul>
+                    </div>
+
+                    <!-- Elderly Care -->
+                    <div class="feature-card p-6 rounded-2xl scroll-reveal group cursor-pointer">
+                        <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-teal-500 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-heart text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Elderly Care Companion</h3>
+                        <p class="text-gray-400 text-sm mb-3">
+                            Provides companionship and safety monitoring. Automatically alerts family/admin in emergencies.
+                        </p>
+                        <ul class="text-gray-400 text-xs space-y-1">
+                            <li>✓ 24/7 companionship</li>
+                            <li>✓ Health monitoring</li>
+                            <li>✓ Emergency alerts</li>
+                            <li>✓ Family notifications</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
             <!-- How It Works Visual -->
             <div class="feature-card p-8 rounded-2xl scroll-reveal">
                 <h3 class="text-2xl font-bold mb-6 text-center">The Learning Journey</h3>
@@ -599,6 +687,580 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enhanced Features Section -->
+    <section id="features" class="py-20 px-6 relative">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 scroll-reveal">
+                <span class="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
+                    Beyond Education - Smart Home & Safety Features
+                </span>
+            </h2>
+
+            <p class="text-center text-xl text-gray-400 mb-12 scroll-reveal max-w-3xl mx-auto">
+                ANU 6.0 is not just an educational robot. It's a versatile AI companion that brings smart home automation, security, and elderly care to your home.
+            </p>
+
+            <!-- Home Automation -->
+            <div class="feature-card p-8 rounded-2xl mb-8 scroll-reveal">
+                <div class="flex items-center mb-6">
+                    <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-home text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-3xl font-bold">🏠 Smart Home Automation (Alexa-like)</h3>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold mb-1">Voice Control</h4>
+                                <p class="text-gray-400 text-sm">Control lights, fans, AC, and other smart devices with voice commands in Kannada and English</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold mb-1">Routine Automation</h4>
+                                <p class="text-gray-400 text-sm">Set up daily routines - "Good morning ANU" activates lights, plays news, starts coffee maker</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold mb-1">Smart Device Integration</h4>
+                                <p class="text-gray-400 text-sm">Works with IoT devices, smart switches, sensors via WiFi/Bluetooth</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold mb-1">Weather & Reminders</h4>
+                                <p class="text-gray-400 text-sm">Get weather updates, set reminders, manage calendar events</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold mb-1">Music & Entertainment</h4>
+                                <p class="text-gray-400 text-sm">Play music, tell stories, answer questions, provide entertainment</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold mb-1">Offline Capable</h4>
+                                <p class="text-gray-400 text-sm">Works without internet - perfect for areas with connectivity issues</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CCTV & Security -->
+            <div class="feature-card p-8 rounded-2xl mb-8 scroll-reveal">
+                <div class="flex items-center mb-6">
+                    <div class="w-16 h-16 bg-gradient-to-r from-red-500 to-orange-500 rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-shield-alt text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-3xl font-bold">🔒 Mobile CCTV & Security System</h3>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold mb-1">Patrol Mode</h4>
+                                <p class="text-gray-400 text-sm">Robot autonomously walks around your home, monitoring all areas with its camera</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold mb-1">Intrusion Detection</h4>
+                                <p class="text-gray-400 text-sm">Detects unknown faces, suspicious activities, and alerts admin immediately via app/phone</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold mb-1">Real-time Alerts</h4>
+                                <p class="text-gray-400 text-sm">Instant notifications to admin/owner when safety issues detected - fire, gas leak, break-in</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold mb-1">Face Recognition Security</h4>
+                                <p class="text-gray-400 text-sm">Recognizes family members, alerts for strangers, maintains visitor log</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold mb-1">Remote Monitoring</h4>
+                                <p class="text-gray-400 text-sm">View live camera feed, control robot movement, check home status from anywhere</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold mb-1">Emergency Response</h4>
+                                <p class="text-gray-400 text-sm">Automatically calls emergency services or admin when critical situations detected</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Elderly Care -->
+            <div class="feature-card p-8 rounded-2xl mb-8 scroll-reveal">
+                <div class="flex items-center mb-6">
+                    <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-heart text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-3xl font-bold">👴 Elderly Care & Companionship</h3>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold mb-1">24/7 Companionship</h4>
+                                <p class="text-gray-400 text-sm">Engaging conversations, stories, games, and activities to keep elderly engaged and happy</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold mb-1">Health Monitoring</h4>
+                                <p class="text-gray-400 text-sm">Reminds for medicines, monitors daily activities, tracks health patterns</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold mb-1">Fall Detection</h4>
+                                <p class="text-gray-400 text-sm">Detects if elderly person falls, immediately alerts children/admin and calls primary contact</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold mb-1">Emergency Calls</h4>
+                                <p class="text-gray-400 text-sm">Primary call feature - automatically calls children/admin in emergencies with voice message</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold mb-1">Daily Check-ins</h4>
+                                <p class="text-gray-400 text-sm">Regular check-ins with family members, sends daily status updates</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-400 mr-3 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold mb-1">Bilingual Support</h4>
+                                <p class="text-gray-400 text-sm">Speaks in Kannada and English, making it easy for elderly to communicate naturally</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Safety Alert Flow -->
+                <div class="mt-8 p-6 bg-red-500/10 border border-red-500/30 rounded-lg">
+                    <h4 class="font-bold text-red-400 mb-4 flex items-center">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>
+                        Safety Alert System Flow
+                    </h4>
+                    <div class="flex flex-wrap items-center justify-center gap-4 text-sm">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-red-500/20 rounded-full flex items-center justify-center">
+                                <i class="fas fa-user text-red-400"></i>
+                            </div>
+                            <span class="ml-2">Elderly Person</span>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-500"></i>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-orange-500/20 rounded-full flex items-center justify-center">
+                                <i class="fas fa-robot text-orange-400"></i>
+                            </div>
+                            <span class="ml-2">ANU Detects Issue</span>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-500"></i>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-yellow-500/20 rounded-full flex items-center justify-center">
+                                <i class="fas fa-bell text-yellow-400"></i>
+                            </div>
+                            <span class="ml-2">Immediate Alert</span>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-500"></i>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center">
+                                <i class="fas fa-phone text-green-400"></i>
+                            </div>
+                            <span class="ml-2">Primary Call to Admin/Children</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture & Flowchart Section -->
+    <!-- Architecture Section with Link to Detailed Page -->
+    <section id="architecture" class="py-20 px-6 bg-gray-900/50">
+        <div class="max-w-6xl mx-auto text-center mb-12">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                <span class="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                    System Architecture
+                </span>
+            </h2>
+            <p class="text-xl text-gray-400 mb-8 max-w-3xl mx-auto">
+                Explore our complete system architecture with detailed diagrams showing how hardware, software, and AI components work together.
+            </p>
+            <a href="architecture.html" class="inline-block px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full font-semibold hover:scale-105 transition-transform">
+                <i class="fas fa-sitemap mr-2"></i> View Detailed Architecture
+            </a>
+        </div>
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 scroll-reveal">
+                <span class="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                    System Architecture & Technology Flow
+                </span>
+            </h2>
+
+            <p class="text-center text-xl text-gray-400 mb-12 scroll-reveal max-w-3xl mx-auto">
+                Understand how hardware, software, and AI components work together seamlessly
+            </p>
+
+            <!-- Complete System Architecture Diagram -->
+            <div class="feature-card p-8 rounded-2xl mb-8 scroll-reveal">
+                <h3 class="text-2xl font-bold mb-6 text-center">Complete System Architecture</h3>
+                <div class="relative overflow-x-auto">
+                    <svg id="architectureDiagram" class="w-full" viewBox="0 0 1200 800" style="min-height: 600px;">
+                        <!-- Background -->
+                        <rect width="1200" height="800" fill="#1e293b" rx="10"/>
+                        
+                        <!-- Title -->
+                        <text x="600" y="40" text-anchor="middle" fill="#e2e8f0" font-size="24" font-weight="bold">ANU 6.0 System Architecture</text>
+                        
+                        <!-- Hardware Layer -->
+                        <g id="hardwareLayer">
+                            <rect x="50" y="80" width="1100" height="150" fill="rgba(99, 102, 241, 0.1)" stroke="#6366f1" stroke-width="2" rx="5"/>
+                            <text x="600" y="110" text-anchor="middle" fill="#a78bfa" font-size="18" font-weight="bold">Hardware Layer</text>
+                            
+                            <!-- Hardware Components -->
+                            <g>
+                                <rect x="100" y="130" width="120" height="80" fill="rgba(99, 102, 241, 0.2)" stroke="#6366f1" rx="5"/>
+                                <text x="160" y="155" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">Raspberry Pi 5</text>
+                                <text x="160" y="175" text-anchor="middle" fill="#a78bfa" font-size="10">8GB RAM</text>
+                                <text x="160" y="190" text-anchor="middle" fill="#a78bfa" font-size="10">Main Controller</text>
+                            </g>
+                            
+                            <g>
+                                <rect x="250" y="130" width="120" height="80" fill="rgba(99, 102, 241, 0.2)" stroke="#6366f1" rx="5"/>
+                                <text x="310" y="155" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">17 DOF Servos</text>
+                                <text x="310" y="175" text-anchor="middle" fill="#a78bfa" font-size="10">MG995 Motors</text>
+                                <text x="310" y="190" text-anchor="middle" fill="#a78bfa" font-size="10">PCA9685 Driver</text>
+                            </g>
+                            
+                            <g>
+                                <rect x="400" y="130" width="120" height="80" fill="rgba(99, 102, 241, 0.2)" stroke="#6366f1" rx="5"/>
+                                <text x="460" y="155" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">HD Camera</text>
+                                <text x="460" y="175" text-anchor="middle" fill="#a78bfa" font-size="10">Face Recognition</text>
+                                <text x="460" y="190" text-anchor="middle" fill="#a78bfa" font-size="10">Object Detection</text>
+                            </g>
+                            
+                            <g>
+                                <rect x="550" y="130" width="120" height="80" fill="rgba(99, 102, 241, 0.2)" stroke="#6366f1" rx="5"/>
+                                <text x="610" y="155" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">Microphone</text>
+                                <text x="610" y="175" text-anchor="middle" fill="#a78bfa" font-size="10">Speech Input</text>
+                                <text x="610" y="190" text-anchor="middle" fill="#a78bfa" font-size="10">Voice Commands</text>
+                            </g>
+                            
+                            <g>
+                                <rect x="700" y="130" width="120" height="80" fill="rgba(99, 102, 241, 0.2)" stroke="#6366f1" rx="5"/>
+                                <text x="760" y="155" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">Sensors</text>
+                                <text x="760" y="175" text-anchor="middle" fill="#a78bfa" font-size="10">Ultrasonic</text>
+                                <text x="760" y="190" text-anchor="middle" fill="#a78bfa" font-size="10">PIR, Temperature</text>
+                            </g>
+                            
+                            <g>
+                                <rect x="850" y="130" width="120" height="80" fill="rgba(99, 102, 241, 0.2)" stroke="#6366f1" rx="5"/>
+                                <text x="910" y="155" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">Speaker</text>
+                                <text x="910" y="175" text-anchor="middle" fill="#a78bfa" font-size="10">TTS Output</text>
+                                <text x="910" y="190" text-anchor="middle" fill="#a78bfa" font-size="10">Audio Feedback</text>
+                            </g>
+                        </g>
+                        
+                        <!-- Software Layer -->
+                        <g id="softwareLayer">
+                            <rect x="50" y="260" width="1100" height="200" fill="rgba(167, 139, 250, 0.1)" stroke="#a78bfa" stroke-width="2" rx="5"/>
+                            <text x="600" y="290" text-anchor="middle" fill="#a78bfa" font-size="18" font-weight="bold">Software & AI Layer</text>
+                            
+                            <!-- Software Components -->
+                            <g>
+                                <rect x="100" y="310" width="150" height="120" fill="rgba(167, 139, 250, 0.2)" stroke="#a78bfa" rx="5"/>
+                                <text x="175" y="335" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">Vision System</text>
+                                <text x="175" y="355" text-anchor="middle" fill="#c4b5fd" font-size="10">Face Recognition</text>
+                                <text x="175" y="370" text-anchor="middle" fill="#c4b5fd" font-size="10">Object Detection</text>
+                                <text x="175" y="385" text-anchor="middle" fill="#c4b5fd" font-size="10">Attention Tracking</text>
+                                <text x="175" y="400" text-anchor="middle" fill="#c4b5fd" font-size="10">OpenCV + YOLO</text>
+                            </g>
+                            
+                            <g>
+                                <rect x="280" y="310" width="150" height="120" fill="rgba(167, 139, 250, 0.2)" stroke="#a78bfa" rx="5"/>
+                                <text x="355" y="335" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">Audio System</text>
+                                <text x="355" y="355" text-anchor="middle" fill="#c4b5fd" font-size="10">Speech Recognition</text>
+                                <text x="355" y="370" text-anchor="middle" fill="#c4b5fd" font-size="10">Text-to-Speech</text>
+                                <text x="355" y="385" text-anchor="middle" fill="#c4b5fd" font-size="10">Pronunciation Scoring</text>
+                                <text x="355" y="400" text-anchor="middle" fill="#c4b5fd" font-size="10">Vosk + Google STT</text>
+                            </g>
+                            
+                            <g>
+                                <rect x="460" y="310" width="150" height="120" fill="rgba(167, 139, 250, 0.2)" stroke="#a78bfa" rx="5"/>
+                                <text x="535" y="335" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">AI Engine</text>
+                                <text x="535" y="355" text-anchor="middle" fill="#c4b5fd" font-size="10">LLM Processing</text>
+                                <text x="535" y="370" text-anchor="middle" fill="#c4b5fd" font-size="10">RL Learning</text>
+                                <text x="535" y="385" text-anchor="middle" fill="#c4b5fd" font-size="10">Adaptive System</text>
+                                <text x="535" y="400" text-anchor="middle" fill="#c4b5fd" font-size="10">Gemini + LSTM</text>
+                            </g>
+                            
+                            <g>
+                                <rect x="640" y="310" width="150" height="120" fill="rgba(167, 139, 250, 0.2)" stroke="#a78bfa" rx="5"/>
+                                <text x="715" y="335" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">Learning System</text>
+                                <text x="715" y="355" text-anchor="middle" fill="#c4b5fd" font-size="10">Progress Tracking</text>
+                                <text x="715" y="370" text-anchor="middle" fill="#c4b5fd" font-size="10">Lesson Management</text>
+                                <text x="715" y="385" text-anchor="middle" fill="#c4b5fd" font-size="10">Recommendations</text>
+                                <text x="715" y="400" text-anchor="middle" fill="#c4b5fd" font-size="10">Adaptive Learning</text>
+                            </g>
+                            
+                            <g>
+                                <rect x="820" y="310" width="150" height="120" fill="rgba(167, 139, 250, 0.2)" stroke="#a78bfa" rx="5"/>
+                                <text x="895" y="335" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">Integration</text>
+                                <text x="895" y="355" text-anchor="middle" fill="#c4b5fd" font-size="10">Module Coordination</text>
+                                <text x="895" y="370" text-anchor="middle" fill="#c4b5fd" font-size="10">Task Management</text>
+                                <text x="895" y="385" text-anchor="middle" fill="#c4b5fd" font-size="10">Context Management</text>
+                                <text x="895" y="400" text-anchor="middle" fill="#c4b5fd" font-size="10">Priority System</text>
+                            </g>
+                        </g>
+                        
+                        <!-- Data Layer -->
+                        <g id="dataLayer">
+                            <rect x="50" y="490" width="1100" height="120" fill="rgba(251, 191, 36, 0.1)" stroke="#fbbf24" stroke-width="2" rx="5"/>
+                            <text x="600" y="520" text-anchor="middle" fill="#fbbf24" font-size="18" font-weight="bold">Data & Storage Layer</text>
+                            
+                            <g>
+                                <rect x="200" y="540" width="200" height="60" fill="rgba(251, 191, 36, 0.2)" stroke="#fbbf24" rx="5"/>
+                                <text x="300" y="565" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">Local Database (SQLite)</text>
+                                <text x="300" y="585" text-anchor="middle" fill="#fcd34d" font-size="10">Students, Sessions, Progress</text>
+                            </g>
+                            
+                            <g>
+                                <rect x="450" y="540" width="200" height="60" fill="rgba(251, 191, 36, 0.2)" stroke="#fbbf24" rx="5"/>
+                                <text x="550" y="565" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">Network Manager</text>
+                                <text x="550" y="585" text-anchor="middle" fill="#fcd34d" font-size="10">Online/Offline Switching</text>
+                            </g>
+                            
+                            <g>
+                                <rect x="700" y="540" width="200" height="60" fill="rgba(251, 191, 36, 0.2)" stroke="#fbbf24" rx="5"/>
+                                <text x="800" y="565" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">Cloud Database (MongoDB)</text>
+                                <text x="800" y="585" text-anchor="middle" fill="#fcd34d" font-size="10">Analytics, Sync, Backup</text>
+                            </g>
+                        </g>
+                        
+                        <!-- Server Layer -->
+                        <g id="serverLayer">
+                            <rect x="50" y="640" width="1100" height="120" fill="rgba(16, 185, 129, 0.1)" stroke="#10b981" stroke-width="2" rx="5"/>
+                            <text x="600" y="670" text-anchor="middle" fill="#10b981" font-size="18" font-weight="bold">Server & Services Layer</text>
+                            
+                            <g>
+                                <rect x="150" y="690" width="180" height="60" fill="rgba(16, 185, 129, 0.2)" stroke="#10b981" rx="5"/>
+                                <text x="240" y="715" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">FastAPI Server</text>
+                                <text x="240" y="735" text-anchor="middle" fill="#6ee7b7" font-size="10">REST API Endpoints</text>
+                            </g>
+                            
+                            <g>
+                                <rect x="360" y="690" width="180" height="60" fill="rgba(16, 185, 129, 0.2)" stroke="#10b981" rx="5"/>
+                                <text x="450" y="715" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">LangChain Service</text>
+                                <text x="450" y="735" text-anchor="middle" fill="#6ee7b7" font-size="10">AI Responses</text>
+                            </g>
+                            
+                            <g>
+                                <rect x="570" y="690" width="180" height="60" fill="rgba(16, 185, 129, 0.2)" stroke="#10b981" rx="5"/>
+                                <text x="660" y="715" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">Analytics Engine</text>
+                                <text x="660" y="735" text-anchor="middle" fill="#6ee7b7" font-size="10">Progress Reports</text>
+                            </g>
+                            
+                            <g>
+                                <rect x="780" y="690" width="180" height="60" fill="rgba(16, 185, 129, 0.2)" stroke="#10b981" rx="5"/>
+                                <text x="870" y="715" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">Web Dashboard</text>
+                                <text x="870" y="735" text-anchor="middle" fill="#6ee7b7" font-size="10">Teacher Interface</text>
+                            </g>
+                        </g>
+                        
+                        <!-- Connection Arrows -->
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <polygon points="0 0, 10 3, 0 6" fill="#6366f1"/>
+                            </marker>
+                        </defs>
+                        
+                        <!-- Hardware to Software -->
+                        <line x1="160" y1="230" x2="175" y2="310" stroke="#6366f1" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <line x1="310" y1="230" x2="355" y2="310" stroke="#6366f1" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <line x1="460" y1="230" x2="535" y2="310" stroke="#6366f1" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <line x1="610" y1="230" x2="715" y2="310" stroke="#6366f1" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <line x1="760" y1="230" x2="895" y2="310" stroke="#6366f1" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        
+                        <!-- Software to Data -->
+                        <line x1="300" y1="430" x2="300" y2="540" stroke="#a78bfa" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <line x1="550" y1="430" x2="550" y2="540" stroke="#a78bfa" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <line x1="800" y1="430" x2="800" y2="540" stroke="#a78bfa" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        
+                        <!-- Data to Server -->
+                        <line x1="240" y1="600" x2="240" y2="690" stroke="#fbbf24" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <line x1="450" y1="600" x2="450" y2="690" stroke="#fbbf24" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <line x1="660" y1="600" x2="660" y2="690" stroke="#fbbf24" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <line x1="870" y1="600" x2="870" y2="690" stroke="#fbbf24" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Data Flow Diagram -->
+            <div class="feature-card p-8 rounded-2xl mb-8 scroll-reveal">
+                <h3 class="text-2xl font-bold mb-6 text-center">Data Flow & Processing Pipeline</h3>
+                <div class="space-y-6">
+                    <!-- Input Flow -->
+                    <div class="bg-blue-500/10 p-6 rounded-lg border border-blue-500/30">
+                        <h4 class="font-bold text-blue-400 mb-4 flex items-center">
+                            <i class="fas fa-arrow-down mr-2"></i>
+                            Input Processing Flow
+                        </h4>
+                        <div class="flex flex-wrap items-center justify-center gap-4">
+                            <div class="text-center">
+                                <div class="w-20 h-20 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <i class="fas fa-camera text-2xl text-blue-400"></i>
+                                </div>
+                                <p class="text-sm font-semibold">Vision Input</p>
+                            </div>
+                            <i class="fas fa-arrow-right text-blue-400"></i>
+                            <div class="text-center">
+                                <div class="w-20 h-20 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <i class="fas fa-microphone text-2xl text-blue-400"></i>
+                                </div>
+                                <p class="text-sm font-semibold">Audio Input</p>
+                            </div>
+                            <i class="fas fa-arrow-right text-blue-400"></i>
+                            <div class="text-center">
+                                <div class="w-20 h-20 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <i class="fas fa-sensor text-2xl text-blue-400"></i>
+                                </div>
+                                <p class="text-sm font-semibold">Sensor Data</p>
+                            </div>
+                            <i class="fas fa-arrow-right text-blue-400"></i>
+                            <div class="text-center">
+                                <div class="w-20 h-20 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <i class="fas fa-brain text-2xl text-purple-400"></i>
+                                </div>
+                                <p class="text-sm font-semibold">AI Processing</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Output Flow -->
+                    <div class="bg-green-500/10 p-6 rounded-lg border border-green-500/30">
+                        <h4 class="font-bold text-green-400 mb-4 flex items-center">
+                            <i class="fas fa-arrow-up mr-2"></i>
+                            Output Generation Flow
+                        </h4>
+                        <div class="flex flex-wrap items-center justify-center gap-4">
+                            <div class="text-center">
+                                <div class="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <i class="fas fa-brain text-2xl text-green-400"></i>
+                                </div>
+                                <p class="text-sm font-semibold">AI Decision</p>
+                            </div>
+                            <i class="fas fa-arrow-right text-green-400"></i>
+                            <div class="text-center">
+                                <div class="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <i class="fas fa-volume-up text-2xl text-green-400"></i>
+                                </div>
+                                <p class="text-sm font-semibold">TTS Response</p>
+                            </div>
+                            <i class="fas fa-arrow-right text-green-400"></i>
+                            <div class="text-center">
+                                <div class="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <i class="fas fa-robot text-2xl text-green-400"></i>
+                                </div>
+                                <p class="text-sm font-semibold">Robot Gesture</p>
+                            </div>
+                            <i class="fas fa-arrow-right text-green-400"></i>
+                            <div class="text-center">
+                                <div class="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <i class="fas fa-database text-2xl text-green-400"></i>
+                                </div>
+                                <p class="text-sm font-semibold">Save Progress</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technology Stack -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="feature-card p-6 rounded-2xl scroll-reveal">
+                    <h4 class="text-xl font-bold mb-4 text-cyan-400">
+                        <i class="fas fa-code mr-2"></i>Frontend
+                    </h4>
+                    <ul class="space-y-2 text-sm">
+                        <li>• HTML5/CSS3</li>
+                        <li>• JavaScript (ES6+)</li>
+                        <li>• Tailwind CSS</li>
+                        <li>• Chart.js</li>
+                        <li>• Three.js</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card p-6 rounded-2xl scroll-reveal">
+                    <h4 class="text-xl font-bold mb-4 text-purple-400">
+                        <i class="fas fa-server mr-2"></i>Backend
+                    </h4>
+                    <ul class="space-y-2 text-sm">
+                        <li>• Python 3.11</li>
+                        <li>• FastAPI</li>
+                        <li>• MongoDB</li>
+                        <li>• SQLite</li>
+                        <li>• Docker</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card p-6 rounded-2xl scroll-reveal">
+                    <h4 class="text-xl font-bold mb-4 text-yellow-400">
+                        <i class="fas fa-brain mr-2"></i>AI/ML
+                    </h4>
+                    <ul class="space-y-2 text-sm">
+                        <li>• PyTorch</li>
+                        <li>• LangChain</li>
+                        <li>• OpenAI/Gemini</li>
+                        <li>• Vosk (STT)</li>
+                        <li>• YOLO (Vision)</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -876,35 +1538,49 @@
                 </span>
             </h2>
 
-            <div class="grid md:grid-cols-3 gap-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="feature-card p-6 rounded-2xl text-center scroll-reveal">
                     <div class="w-24 h-24 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full mx-auto mb-4 flex items-center justify-center">
                         <i class="fas fa-user text-3xl text-white"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-2">Sadhu J</h3>
-                    <h3 class="text-xl font-bold mb-2">Lead Developer</h3>
+                    <p class="text-gray-400 text-sm mb-2">Lead Developer</p>
                     <p class="text-gray-400 text-sm">AI & Robotics Specialist</p>
-                    <p class="text-xs text-gray-500 mt-2">Student at Coorg Institute of Technology</p>
+                    <p class="text-xs text-gray-500 mt-2">[4CI22AI037]</p>
+                    <p class="text-xs text-gray-500">Coorg Institute of Technology</p>
                 </div>
 
                 <div class="feature-card p-6 rounded-2xl text-center scroll-reveal">
                     <div class="w-24 h-24 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mx-auto mb-4 flex items-center justify-center">
                         <i class="fas fa-user text-3xl text-white"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-2">Praju K K</h3>
-                    <h3 class="text-xl font-bold mb-2">Hardware Engineer & Full Stack Developer</h3>
-                    <p class="text-gray-400 text-sm">Embedded Systems Expert</p>
-                    <p class="text-xs text-gray-500 mt-2">Student at Coorg Institute of Technology</p>
+                    <h3 class="text-xl font-bold mb-2">Nishanth R R</h3>
+                    <p class="text-gray-400 text-sm mb-2">Team Member</p>
+                    <p class="text-gray-400 text-sm">Development & Research</p>
+                    <p class="text-xs text-gray-500 mt-2">[4CI22AI030]</p>
+                    <p class="text-xs text-gray-500">Coorg Institute of Technology</p>
                 </div>
 
                 <div class="feature-card p-6 rounded-2xl text-center scroll-reveal">
                     <div class="w-24 h-24 bg-gradient-to-r from-green-500 to-teal-500 rounded-full mx-auto mb-4 flex items-center justify-center">
                         <i class="fas fa-user text-3xl text-white"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-2">Janavi H M</h3>
-                    <h3 class="text-xl font-bold mb-2">Project Researcher & Education Specialist</h3>
-                    <p class="text-gray-400 text-sm">Curriculum Design Expert</p>
-                    <p class="text-xs text-gray-500 mt-2">Student at Coorg Institute of Technology</p>
+                    <h3 class="text-xl font-bold mb-2">Sanjay P J</h3>
+                    <p class="text-gray-400 text-sm mb-2">Team Member</p>
+                    <p class="text-gray-400 text-sm">Development & Research</p>
+                    <p class="text-xs text-gray-500 mt-2">[4CI22AI040]</p>
+                    <p class="text-xs text-gray-500">Coorg Institute of Technology</p>
+                </div>
+
+                <div class="feature-card p-6 rounded-2xl text-center scroll-reveal">
+                    <div class="w-24 h-24 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-user text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Thirtha Prasad C N</h3>
+                    <p class="text-gray-400 text-sm mb-2">Team Member</p>
+                    <p class="text-gray-400 text-sm">Development & Research</p>
+                    <p class="text-xs text-gray-500 mt-2">[4CI22AI048]</p>
+                    <p class="text-xs text-gray-500">Coorg Institute of Technology</p>
                 </div>
             </div>
 
@@ -932,6 +1608,75 @@
                             <h4 class="font-bold">Industry Mentor</h4>
                             <p class="text-sm text-gray-400">AI & Robotics Industry Expert</p>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GitHub Section -->
+    <section class="py-20 px-6 bg-gradient-to-b from-gray-900 to-dark">
+        <div class="max-w-6xl mx-auto">
+            <div class="feature-card p-12 rounded-3xl scroll-reveal">
+                <div class="text-center mb-8">
+                    <div class="w-24 h-24 bg-gradient-to-r from-gray-800 to-gray-700 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fab fa-github text-5xl text-white"></i>
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                        <span class="bg-gradient-to-r from-gray-300 to-gray-500 bg-clip-text text-transparent">
+                            Open Source Project
+                        </span>
+                    </h2>
+                    <p class="text-xl text-gray-400 max-w-3xl mx-auto mb-8">
+                        ANU 6.0 is completely open source. View the code, contribute, fork, or star the repository on GitHub.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-dark/50 p-6 rounded-xl text-center">
+                        <i class="fas fa-code text-4xl text-blue-400 mb-4"></i>
+                        <h3 class="font-bold text-lg mb-2">View Code</h3>
+                        <p class="text-gray-400 text-sm">Explore our complete codebase</p>
+                    </div>
+                    <div class="bg-dark/50 p-6 rounded-xl text-center">
+                        <i class="fas fa-code-branch text-4xl text-green-400 mb-4"></i>
+                        <h3 class="font-bold text-lg mb-2">Contribute</h3>
+                        <p class="text-gray-400 text-sm">Help improve ANU 6.0</p>
+                    </div>
+                    <div class="bg-dark/50 p-6 rounded-xl text-center">
+                        <i class="fas fa-star text-4xl text-yellow-400 mb-4"></i>
+                        <h3 class="font-bold text-lg mb-2">Star Us</h3>
+                        <p class="text-gray-400 text-sm">Show your support</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="https://github.com/Sadhu2005/ANU-AI-Humanoid" target="_blank" 
+                       class="px-8 py-4 bg-gradient-to-r from-gray-800 to-gray-700 rounded-full font-semibold hover:from-gray-700 hover:to-gray-600 transition-all flex items-center justify-center space-x-3 shadow-lg border border-primary/30 hover:border-primary/60"
+                       title="Access GitHub Repository">
+                        <i class="fab fa-github text-2xl"></i>
+                        <span class="text-lg">View on GitHub</span>
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                    <a href="https://github.com/Sadhu2005/ANU-AI-Humanoid/fork" target="_blank" 
+                       class="px-8 py-4 border-2 border-gray-600 rounded-full font-semibold hover:bg-gray-800 transition-all"
+                       title="Fork Repository">
+                        <i class="fas fa-code-branch mr-2"></i> Fork Repository
+                    </a>
+                </div>
+
+                <div class="mt-8 flex justify-center space-x-8 text-sm text-gray-400">
+                    <div class="flex items-center space-x-2">
+                        <i class="fab fa-github"></i>
+                        <span>Open Source</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-balance-scale"></i>
+                        <span>MIT License</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-users"></i>
+                        <span>Community Driven</span>
                     </div>
                 </div>
             </div>
@@ -977,7 +1722,10 @@
                     <ul class="space-y-2 text-gray-400 text-sm">
                         <li><a href="#" class="hover:text-primary transition-colors">Documentation</a></li>
                         <li><a href="#" class="hover:text-primary transition-colors">Research Papers</a></li>
-                        <li><a href="https://github.com/Sadhu2005/ANU-AI-Humanoid.git" class="hover:text-primary transition-colors">GitHub Repository</a></li>
+                        <li><a href="https://github.com/Sadhu2005/ANU-AI-Humanoid" target="_blank" class="hover:text-primary transition-colors flex items-center">
+                            <i class="fab fa-github mr-2"></i> GitHub Repository
+                        </a></li>
+                        <li><a href="architecture.html" class="hover:text-primary transition-colors">System Architecture</a></li>
                         <li><a href="https://sadhujdeveloper.com" class="hover:text-primary transition-colors">Contact Us</a></li>
                     </ul>
                 </div>
@@ -990,8 +1738,11 @@
                         <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
                             <i class="fab fa-twitter"></i>
                         </a>
-                        <a href="https://github.com/Sadhu2005" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                        <a href="https://github.com/Sadhu2005/ANU-AI-Humanoid" target="_blank" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors" title="GitHub Repository - Access Code">
                             <i class="fab fa-github"></i>
+                        </a>
+                        <a href="architecture.html" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors" title="System Architecture">
+                            <i class="fas fa-sitemap"></i>
                         </a>
                         <a href="sadhuj2005@gmail.com" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
                             <i class="fas fa-envelope"></i>
@@ -1000,7 +1751,7 @@
                 </div>
             </div>
             <div class="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400 text-sm">
-                <p>&copy; 2025 ANU 6.0 Project -Sadhu J, Praju K K & Janavi H M, Students at Coorg Institute of Technology, Ponnampet</p>
+                <p>&copy; 2025 ANU 6.0 Project - Sadhu J [4CI22AI037], Nishanth R R [4CI22AI030], Sanjay P J [4CI22AI040] & Thirtha Prasad C N [4CI22AI048], Students at Coorg Institute of Technology, Ponnampet</p>
                 <p class="mt-2">Building the future of education, one robot at a time.</p>
             </div>
         </div>
@@ -1345,11 +2096,28 @@
             });
         };
 
+        // Nav scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('mainNav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
         // Initialize everything when page loads
         document.addEventListener('DOMContentLoaded', () => {
             initRobot3D();
             initImpactChart();
             initArchitectureVisualization();
+            
+            // Add fade-in animations
+            document.querySelectorAll('.scroll-reveal').forEach((el, index) => {
+                setTimeout(() => {
+                    el.classList.add('fade-in-up');
+                }, index * 100);
+            });
         });
 
         // Smooth scrolling for navigation links

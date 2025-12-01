@@ -1,4 +1,5 @@
 import threading
+import time
 import cv2
 import face_recognition
 from ultralytics import YOLO
@@ -54,33 +55,47 @@ class VisionProcessor:
     
     def run(self):
         """Run vision processing in a separate thread"""
+        if not self.camera or not self.camera.isOpened():
+            print("Vision processor cannot start: camera not available")
+            return
+        
         self.running = True
         
         print("Vision processor started.")
         while self.running:
-            ret, frame = self.camera.read()
-            if not ret:
-                continue
-            
-            # Process frame at reduced frequency to save CPU
-            if int(time.time() * self.config.VISION_PROCESSING_FPS) % 2 == 0:
-                # Detect faces
-                face_results = self.process_faces(frame)
+            try:
+                ret, frame = self.camera.read()
+                if not ret:
+                    time.sleep(0.1)
+                    continue
                 
-                # Detect objects
-                object_results = self.process_objects(frame)
+                # Process frame at reduced frequency to save CPU
+                if int(time.time() * self.config.VISION_PROCESSING_FPS) % 2 == 0:
+                    try:
+                        # Detect faces
+                        face_results = self.process_faces(frame)
+                        
+                        # Detect objects
+                        object_results = self.process_objects(frame)
+                        
+                        # Send results to output queue if anything detected
+                        if face_results.get('faces') or object_results.get('objects'):
+                            self.output_queue.put({
+                                'type': 'vision',
+                                'faces': face_results.get('faces', []),
+                                'objects': object_results.get('objects', []),
+                                'timestamp': time.time()
+                            })
+                    except Exception as e:
+                        print(f"Error processing vision frame: {e}")
+                        continue
                 
-                # Send results to output queue if anything detected
-                if face_results['faces'] or object_results['objects']:
-                    self.output_queue.put({
-                        'type': 'vision',
-                        'faces': face_results['faces'],
-                        'objects': object_results['objects'],
-                        'timestamp': time.time()
-                    })
+                # Sleep to control processing rate
+                time.sleep(1 / self.config.VISION_PROCESSING_FPS)
             
-            # Sleep to control processing rate
-            time.sleep(1 / self.config.VISION_PROCESSING_FPS)
+            except Exception as e:
+                print(f"Error in vision processing loop: {e}")
+                time.sleep(1)  # Wait before retrying
     
     def process_faces(self, frame):
         """Process frame for face recognition"""

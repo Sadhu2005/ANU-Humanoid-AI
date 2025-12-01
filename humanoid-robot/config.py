@@ -41,3 +41,11 @@ class Config:
     # Performance settings
     VISION_PROCESSING_FPS = 5  # Lower FPS to reduce CPU load
     LLM_CONTEXT_LENGTH = 512   # Shorter context for faster processing
+    
+    # Server settings
+    SERVER_URL = os.getenv('SERVER_URL', 'http://localhost:8000')
+    ROBOT_ID = os.getenv('ROBOT_ID', 'robot_001')
+    
+    def get(self, key: str, default=None):
+        """Get configuration value"""
+        return getattr(self, key, default)

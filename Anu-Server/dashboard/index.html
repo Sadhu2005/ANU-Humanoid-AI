@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANU 6.0 - Teacher Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f3f4f6;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-indigo-600 text-white p-4">
+            <div class="container mx-auto flex justify-between items-center">
+                <h1 class="text-2xl font-bold">ANU 6.0 Teacher Dashboard</h1>
+                <div class="flex items-center space-x-4">
+                    <span id="connectionStatus" class="px-3 py-1 rounded bg-green-500">Online</span>
+                    <button onclick="refreshData()" class="px-4 py-2 bg-indigo-700 rounded hover:bg-indigo-800">
+                        Refresh
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="container mx-auto p-6">
+            <!-- Stats Overview -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+                <div class="card">
+                    <h3 class="text-gray-600 text-sm mb-2">Total Students</h3>
+                    <p class="text-3xl font-bold text-indigo-600" id="totalStudents">0</p>
+                </div>
+                <div class="card">
+                    <h3 class="text-gray-600 text-sm mb-2">Active Sessions</h3>
+                    <p class="text-3xl font-bold text-green-600" id="activeSessions">0</p>
+                </div>
+                <div class="card">
+                    <h3 class="text-gray-600 text-sm mb-2">Avg Pronunciation</h3>
+                    <p class="text-3xl font-bold text-blue-600" id="avgPronunciation">0%</p>
+                </div>
+                <div class="card">
+                    <h3 class="text-gray-600 text-sm mb-2">Lessons Completed</h3>
+                    <p class="text-3xl font-bold text-purple-600" id="lessonsCompleted">0</p>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                <!-- Progress Chart -->
+                <div class="card">
+                    <h2 class="text-xl font-bold mb-4">Student Progress</h2>
+                    <canvas id="progressChart"></canvas>
+                </div>
+
+                <!-- Performance Chart -->
+                <div class="card">
+                    <h2 class="text-xl font-bold mb-4">Performance Trends</h2>
+                    <canvas id="performanceChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Students Table -->
+            <div class="card mb-6">
+                <h2 class="text-xl font-bold mb-4">Students</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Level</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Progress</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Last Session</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentsTable" class="bg-white divide-y divide-gray-200">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Robot Status -->
+            <div class="card">
+                <h2 class="text-xl font-bold mb-4">Robot Status</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <p class="text-gray-600">Battery Level</p>
+                        <p class="text-2xl font-bold" id="batteryLevel">--</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-600">Network Status</p>
+                        <p class="text-2xl font-bold" id="networkStatus">--</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-600">Active Modules</p>
+                        <p class="text-2xl font-bold" id="activeModules">--</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:8000/api';
+
+        // Initialize charts
+        const progressCtx = document.getElementById('progressChart').getContext('2d');
+        const progressChart = new Chart(progressCtx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Average Progress',
+                    data: [],
+                    borderColor: 'rgb(99, 102, 241)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+
+        const performanceCtx = document.getElementById('performanceChart').getContext('2d');
+        const performanceChart = new Chart(performanceCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Pronunciation', 'Comprehension', 'Vocabulary', 'Engagement'],
+                datasets: [{
+                    label: 'Average Scores',
+                    data: [0, 0, 0, 0],
+                    backgroundColor: [
+                        'rgba(99, 102, 241, 0.8)',
+                        'rgba(16, 185, 129, 0.8)',
+                        'rgba(251, 191, 36, 0.8)',
+                        'rgba(239, 68, 68, 0.8)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+
+        // Fetch and display data
+        async function fetchData() {
+            try {
+                // Fetch students
+                const studentsRes = await fetch(`${API_URL}/students`);
+                const students = await studentsRes.json();
+                
+                document.getElementById('totalStudents').textContent = students.length;
+                
+                // Update students table
+                const tableBody = document.getElementById('studentsTable');
+                tableBody.innerHTML = students.map(student => `
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">${student.name}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">${student.level}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-indigo-600 h-2 rounded-full" style="width: ${student.progress || 0}%"></div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">${student.last_seen || 'Never'}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <button onclick="viewStudent('${student.student_id}')" class="text-indigo-600 hover:text-indigo-900">
+                                View
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+
+                // Calculate averages
+                let totalPronunciation = 0;
+                let count = 0;
+                
+                for (const student of students) {
+                    const stats = await fetch(`${API_URL}/progress/${student.student_id}/stats`).then(r => r.json());
+                    if (stats.avg_pronunciation) {
+                        totalPronunciation += stats.avg_pronunciation;
+                        count++;
+                    }
+                }
+                
+                const avg = count > 0 ? (totalPronunciation / count).toFixed(1) : 0;
+                document.getElementById('avgPronunciation').textContent = `${avg}%`;
+                
+                // Update performance chart
+                performanceChart.data.datasets[0].data = [avg, 75, 68, 82];
+                performanceChart.update();
+
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                document.getElementById('connectionStatus').textContent = 'Offline';
+                document.getElementById('connectionStatus').className = 'px-3 py-1 rounded bg-red-500';
+            }
+        }
+
+        function refreshData() {
+            fetchData();
+        }
+
+        function viewStudent(studentId) {
+            window.location.href = `student.html?id=${studentId}`;
+        }
+
+        // Initial load
+        fetchData();
+        
+        // Auto-refresh every 30 seconds
+        setInterval(fetchData, 30000);
+    </script>
+</body>
+</html>
+

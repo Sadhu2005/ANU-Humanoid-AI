@@ -13,6 +13,13 @@ To bridge the educational and digital divide for students in rural Karnataka by 
 
 *This project was initiated by the EvoBot Crew at the Coorg Institute of Technology, Ponnampet.*
 
+### 🚀 Quick Start
+
+- **New to the project?** → Open `Anu-website/index.html` in your browser for an interactive visual overview
+- **Developer?** → Jump to [Getting Started](#-getting-started) section
+- **Want to understand the tech?** → Check out [Technology & Algorithm Stack](#-technology--algorithm-stack)
+- **Interested in contributing?** → See [Contributing](#-contributing) section
+
 ---
 
 ## 🧐 The Problem
@@ -48,99 +55,196 @@ The system follows a modular, three-stage flow:
 
 ---
 
+## 🔬 Technology & Algorithm Stack
+
+### End-to-End Pipeline
+
+```
+Student Speech/Video 
+  → Audio Preprocessing 
+  → Voice Activity Detection (VAD) 
+  → Automatic Speech Recognition (ASR) 
+  → Phoneme Extraction / Forced Alignment 
+  → Pronunciation Scoring 
+  → NLU / Intent & Dialog Management 
+  → Response Generation (LLM or Rule-based) 
+  → Text-to-Speech (TTS) 
+  → Robot Animation / UI 
+  → Logging & Adaptation (Profile Update)
+```
+
+### Detailed Technology Stack
+
+| Component | Purpose | Algorithms/Tools | Tech/Libraries | Notes |
+|-----------|---------|----------------|----------------|--------|
+| **Audio Input & Preprocessing** | Capture clean audio, normalize, remove noise | WebRTC VAD, spectral noise reduction, STFT | `sounddevice`/`pyaudio`, `webrtcvad`, `librosa`, `sox`, FFmpeg | Run VAD on-device; use 16 kHz mono |
+| **Voice Activity Detection (VAD)** | Detect when student is speaking | WebRTC VAD (frame-based), energy-thresholding | `webrtcvad` (Python) | Combine with silence padding for full utterances |
+| **Automatic Speech Recognition (ASR)** | Convert speech → text | Whisper-small/medium, Vosk/Kaldi, HuBERT/CTC | `whisper`, `vosk`, Hugging Face ASR, ONNX Runtime | Use Vosk for offline; Whisper for higher accuracy |
+| **Forced Alignment / Phoneme Extraction** | Align transcript → phoneme timecodes | Montreal Forced Aligner (MFA), Gentle, CTC-based phoneme PPGs | `montreal-forced-aligner`, Kaldi/Gentle, PyTorch | MFA accurate but heavy; Gentle more lightweight |
+| **Pronunciation Scoring** | Score pronunciation, highlight errors | Phoneme Error Rate (PER), DTW on phoneme posteriors | Custom Python module with alignment output | Provide percent score + corrective hints |
+| **Speech Enhancement** | Improve ASR in noisy environments | Spectral subtraction, RNNoise, DNN denoisers | `rnnoise`, `demucs`, ONNX denoiser | Keep model small; denoise only when needed |
+| **Natural Language Understanding (NLU)** | Parse commands, answers, intents | DistilBERT/miniLM/BERT (fine-tuned), rule-based fallback | Hugging Face `transformers`, `sklearn` | Use quantized models for on-device |
+| **Dialogue Management** | Control lesson flow, adapt difficulty | FSM for scripted lessons + adaptive policy (bandit/RL) | Custom FSM, `rasa` (optional), rule engine | Keep pedagogical logic deterministic |
+| **LLM for Explanations** | Generate natural feedback | Phi-3/Llama2-7B/Vicuna (quantized), instruction-tuned 3B | Hugging Face, `ggml`/`llama.cpp`, LM Studio | Use sparingly; sanitize output |
+| **Text-to-Speech (TTS)** | Synthesize bilingual speech | Tacotron2+WaveGlow/VITS, Coqui TTS, VITS variants | `Coqui TTS`, `torch`, `gTTS`, `RhVoice` | Provide slow playback; Kannada + English voices |
+| **Computer Vision** | Detect attention, mouth shape, gestures | MediaPipe (FaceMesh, Hands, Pose), CNN for lip detection | `mediapipe`, OpenCV, `tf-lite` | Use with consent; helpful for visual feedback |
+| **Robot Control & Animation** | Synchronize servos with TTS | Servo sequencing, animation queue, viseme mapping | PCA9685 + Adafruit lib, `pySerial`, ROS-lite | Map phonemes → visemes for gestures |
+| **Edge Inference** | Run ML models on Raspberry Pi | Model quantization, ONNX Runtime, TensorRT | ONNX Runtime, TensorRT, TFLite, `bitsandbytes` | Convert to ONNX/quantized formats |
+| **Backend & Dashboard** | Teacher dashboard, analytics | REST API, database, web UI | FastAPI/Flask, PostgreSQL/SQLite, React+Tailwind | Docker containers; support offline mode |
+| **Data Privacy & Security** | Protect student data | Encryption, TLS, anonymization | AES encryption, TLS, consent forms | Local-only mode; minimal audio retention |
+| **Monitoring & Metrics** | Measure performance and learning | WER, PER, pronunciation score, engagement | Prometheus+Grafana, CSV/Excel export | Track model performance and student progress |
+
+### Recommended Concrete Stack
+
+**Core Technologies:**
+- **ASR**: Vosk (offline) or Whisper-small (local)
+- **Pronunciation/Alignment**: Montreal Forced Aligner / Gentle + custom PER calculator
+- **VAD/Preprocessing**: `webrtcvad` + `librosa`
+- **NLU**: DistilBERT / miniLM (Hugging Face) - fine-tuned for intents
+- **LLM**: Phi-3 or quantized Llama2-7B via LM Studio / `llama.cpp`
+- **TTS**: Coqui TTS or VITS (local voices for English + Kannada)
+- **Computer Vision**: MediaPipe (FaceMesh & Hands)
+- **Edge Runtime**: ONNX Runtime or TFLite, `bitsandbytes` for quantization
+- **Robot Hardware**: Raspberry Pi 5, PCA9685 (16-ch servo driver), ESP32-CAM
+- **Backend**: FastAPI + React (Tailwind) + SQLite/Postgres
+- **DevOps**: Docker, GitHub Actions, SD image builder for Pi
+
+### End-to-End Algorithm Example
+
+```python
+# 1. Audio Capture & Preprocessing
+audio = capture()
+chunks = segment(audio, webrtcvad)
+
+# 2. Speech Recognition
+clean = denoise(chunks)
+transcript = asr_model.predict(clean)  # Whisper/Vosk
+
+# 3. Forced Alignment
+alignment = forced_align(transcript, clean)  # MFA/Gentle
+
+# 4. Pronunciation Scoring
+score = pronunciation_scoring(alignment, canonical_phonemes)  # PER + DTW
+
+# 5. Intent Detection & Lesson Management
+intent = nlu.predict(transcript)
+next_action = lesson_engine.tick(intent, score)
+
+# 6. Response Generation
+reply_text = response_gen(template_or_llm(next_action, score))
+
+# 7. Text-to-Speech & Animation
+tts_audio = tts.synthesize(reply_text, lang)
+play(tts_audio)
+animate(viseme_map(reply_text))
+
+# 8. Logging & Adaptation
+log(student_id, score, intent, timestamp)
+update_profile(student_id, score)
+adapt_next_content(student_id)
+```
+
+---
+
 ## 📁 Repository Structure
 ```
-anu-6.0/
+ANU-Humanoid-AI/
 │
-├── 🤖 robot_brain/ # All code that runs on the Raspberry Pi
-│   ├── main.py # Main application entry point
-│   ├── requirements.txt # Python dependencies for the robot
-│   ├── .env.example # Example environment variables
-│   ├── config/ # Configuration files
-│   │   ├── settings.py # Main configuration settings
-│   │   └── servo_config.json # Servo calibration data
+├── 🤖 humanoid-robot/          # All code that runs on the Raspberry Pi
+│   ├── main.py                 # Main application entry point
+│   ├── config.py               # Configuration settings
+│   ├── requirements.txt        # Python dependencies for the robot
+│   ├── data/                   # Local database and storage
+│   │   └── local_database.db   # SQLite database
 │   │
-│   ├── core/ # Core system modules
-│   │   ├── __init__.py
-│   │   ├── state_manager.py # Manages the robot's current state
-│   │   └── connectivity_manager.py # Handles online/offline status
+│   ├── modules/                # Individual functionality modules
+│   │   ├── speech/             # Speech processing (STT & TTS)
+│   │   │   └── speech_processor.py
+│   │   ├── vision/             # Computer vision & face recognition
+│   │   │   └── vision_processor.py
+│   │   ├── llm/                # Language model processing
+│   │   │   └── llm_processor.py
+│   │   ├── motion/             # Robot movement control
+│   │   │   └── motion_controller.py
+│   │   └── sensors/            # Sensor management
+│   │       └── sensor_manager.py
 │   │
-│   ├── modules/ # Individual functionality modules
-│   │   ├── __init__.py
-│   │   ├── speech_processing/ # Handles STT and TTS
-│   │   │   ├── __init__.py
-│   │   │   ├── speech_recognizer.py
-│   │   │   ├── text_to_speech.py
-│   │   │   └── voice_processor.py
-│   │   │
-│   │   ├── ai_core/ # The AI decision-making brain
-│   │   │   ├── __init__.py
-│   │   │   ├── gemini_api.py # Gemini API integration
-│   │   │   ├── conversation_manager.py
-│   │   │   └── response_generator.py
-│   │   │
-│   │   ├── vision/ # OpenCV and camera functionalities
-│   │   │   ├── __init__.py
-│   │   │   ├── camera_controller.py
-│   │   │   └── face_recognition.py
-│   │   │
-│   │   └── motion/ # Controls physical movements
-│   │       ├── __init__.py
-│   │       ├── servo_controller.py # Interface with PCA9685 driver
-│   │       ├── motion_planner.py
-│   │       └── gestures_library.py # Predefined gestures and actions
-│   │
-│   ├── utils/ # Utility functions and helpers
-│   │   ├── __init__.py
-│   │   ├── logger.py # Logging configuration
-│   │   ├── helpers.py # Common helper functions
-│   │   └── audio_utils.py # Audio processing utilities
-│   │
-│   └── tests/ # Unit and integration tests
+│   └── utils/                  # Utility functions
+│       └── network_checker.py  # Network connectivity utilities
+│
+├── 🌐 Anu-Server/              # Backend server (API & Services)
+│   ├── main.py                 # Server entry point
+│   ├── requirements.txt        # Server dependencies
+│   ├── Dockerfile              # Docker configuration
+│   └── app/                    # Application code
 │       ├── __init__.py
-│       ├── test_speech.py
-│       ├── test_vision.py
-│       └── test_motion.py
+│       ├── api.py              # API endpoints
+│       ├── models.py           # Data models
+│       └── services.py         # Business logic
 │
-├── 🌐 server/ # (Optional) Backend server code
-│   ├── main.py
-│   ├── requirements.txt
-│   └── api/ # API endpoints
-│       ├── __init__.py
-│       └── routes.py
+├── 🌍 Anu-website/              # Project website & documentation
+│   ├── index.html              # Interactive landing page
+│   └── Ground Work.mp4         # Project demonstration video
 │
-├── 🛠️ hardware/ # Hardware schematics and documentation
-│   ├── ANU_6.0_BOM.csv # Bill of Materials
-│   ├── wiring_diagram.png
-│   ├── assembly_guide.md
-│   └── 3d_models/ # STL files for 3D printed parts
-│       ├── head.stl
-│       ├── arm.stl
-│       └── torso.stl
-│
-├── 📚 docs/ # Project documentation
-│   ├── architecture.md
-│   ├── setup_guide.md
-│   ├── api_reference.md
-│   └── contribution_guide.md
-│
-├── 📦 datasets/ # Training data and models
-│   ├── voice_samples/ # Voice command samples
-│   ├── face_data/ # Face recognition training data
-│   └── models/ # Pre-trained models
-│       ├── vosk-model/ # Offline speech recognition model
-│       └── face_recognition_model/
-│
-├── scripts/ # Deployment and maintenance scripts
-│   ├── install_dependencies.sh
-│   ├── setup_raspberrypi.sh
-│   └── update_robot.sh
-│
-├── .gitignore
-├── LICENSE
-├── CODE_OF_CONDUCT.md
-└── README.md
+└── README.md                   # This file
 ```
+
+---
+
+## 🌐 ANU Website
+
+The **Anu-website** directory contains our interactive project website that serves as a comprehensive showcase and documentation platform for ANU 6.0.
+
+### Website Features
+
+- **🎨 Modern UI/UX**: Built with Tailwind CSS, featuring animated gradients, particle effects, and smooth scroll animations
+- **📱 Fully Responsive**: Optimized for desktop, tablet, and mobile devices
+- **🎯 Interactive Sections**:
+  - Hero section with animated statistics
+  - Problem statement with visual representations
+  - Solution overview with feature cards
+  - Technology stack visualization
+  - Impact metrics and charts
+  - Development roadmap timeline
+  - Team showcase
+- **📊 Data Visualization**: 
+  - Interactive charts using Chart.js
+  - 3D robot visualization with Three.js
+  - System architecture diagrams
+- **🚀 Performance**: Lightweight, fast-loading with optimized animations
+
+### Accessing the Website
+
+Simply open `Anu-website/index.html` in any modern web browser. The website is self-contained and requires no server setup.
+
+### Website Sections
+
+1. **Home**: Hero section with project introduction and key statistics
+2. **Challenge**: Detailed problem statement for rural education
+3. **Solution**: ANU 6.0 features and capabilities
+4. **Technology**: Technical architecture and stack details
+5. **Impact**: Projected social, economic, and educational impact
+6. **Roadmap**: Development timeline and milestones
+7. **Team**: Team members and mentors
+
+The website provides an excellent overview for anyone wanting to understand the project quickly and visually.
+
+### Why the Website Matters
+
+The **Anu-website** serves multiple important purposes:
+
+1. **📖 Project Documentation**: Acts as a living, interactive documentation that explains the project's mission, technology, and impact
+2. **🎓 Educational Tool**: Helps stakeholders, educators, and potential partners understand the project without diving into code
+3. **📊 Visual Communication**: Uses charts, animations, and visualizations to convey complex technical concepts
+4. **🌐 Public Outreach**: Serves as a public-facing showcase for the project
+5. **📱 Accessibility**: Easy to share and view on any device, making the project accessible to non-technical audiences
+
+### Website vs. README
+
+- **README.md**: Technical documentation for developers, setup instructions, and code structure
+- **Website (index.html)**: Visual, interactive presentation for all audiences including educators, students, and stakeholders
+
+Together, they provide comprehensive documentation for both technical and non-technical audiences.
 
 ---
 
@@ -215,6 +319,31 @@ python main.py
 python -m modules.speech_processing.voice_processor
 ```
 
+### Viewing the Project Website
+
+The ANU website provides a comprehensive visual overview of the project:
+
+```bash
+# Navigate to the website directory
+cd Anu-website
+
+# Open index.html in your browser
+# On Linux/Mac:
+open index.html
+# On Windows:
+start index.html
+# Or simply double-click index.html in your file manager
+```
+
+The website is fully self-contained and includes:
+- Interactive project showcase
+- Technology stack visualization
+- Development roadmap
+- Team information
+- Impact metrics and charts
+
+No server setup required - just open the HTML file in any modern web browser!
+
 ---
 
 ## 🧪 Testing
@@ -264,8 +393,23 @@ For questions or support, please contact:
 ---
 
 ## 🔗 Useful Links
-- Project Wiki
-- Issue Tracker
-- Release Notes
+- **🌐 Project Website**: Open `Anu-website/index.html` in your browser for interactive project showcase
+- **📚 GitHub Repository**: [ANU-AI-Humanoid](https://github.com/Sadhu2005/ANU-AI-Humanoid.git)
+- **👤 Project Lead**: [Sadhu J - Portfolio](https://sadhujdeveloper.com)
+- **🌍 Development Team**: [ANU AI Website](https://anuai.sadhujdeveloper.com)
+- **💼 LinkedIn**: [Sadhu J](https://www.linkedin.com/in/sadhu-j-3387b228a)
+- **📧 Contact**: sadhuj2005@gmail.com
+
+## 📚 Documentation
+
+Comprehensive documentation is available:
+
+- **[📖 Project Documentation](./PROJECT_DOCUMENTATION.md)** - Complete project overview, architecture, and technical details
+- **[🔬 Research Documentation](./RESEARCH_DOCUMENTATION.md)** - Current research activities and academic contributions
+- **[📦 Product Documentation](./PRODUCT_DOCUMENTATION.md)** - Product portfolio, features, and business information
+- **[🛠️ Setup Guide](./SETUP_GUIDE.md)** - Step-by-step installation and configuration
+- **[📋 Documentation Index](./DOCUMENTATION_INDEX.md)** - Quick navigation to all documentation
+
+For quick access, see the [Documentation Index](./DOCUMENTATION_INDEX.md).
 
 <p align="center"> Made with ❤️ by the EvoBot Crew | Coorg Institute of Technology </p>

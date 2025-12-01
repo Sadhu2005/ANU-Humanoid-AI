@@ -48,7 +48,7 @@ class MotionController:
                 command.get('speed', 0.5)
             )
         elif action == 'stop':
-            self.stop()
+            self.stop_motors()
         elif action == 'gesture':
             self.execute_gesture(command.get('gesture'))
         elif action == 'pose':
@@ -75,9 +75,9 @@ class MotionController:
         # If distance is specified, stop after moving that distance
         if distance > 0:
             time.sleep(self.calculate_move_time(distance, speed))
-            self.stop()
+            self.stop_motors()
     
-    def stop(self):
+    def stop_motors(self):
         """Stop all motors"""
         self.motor_controller.stop()
     
@@ -137,7 +137,7 @@ class MotionController:
     
     def emergency_stop(self):
         """Immediately stop all motion"""
-        self.stop()
+        self.stop_motors()
         # Set all servos to neutral position quickly
         for i, pos in enumerate(self.poses['neutral']):
             self.servo_kit.servo[i].angle = pos

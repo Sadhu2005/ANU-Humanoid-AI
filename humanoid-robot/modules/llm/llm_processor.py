@@ -1,4 +1,5 @@
 import threading
+import time
 import requests
 from llama_cpp import Llama
 
@@ -7,14 +8,26 @@ class LLMProcessor:
         self.output_queue = output_queue
         self.config = config
         self.running = False
+        self.offline_llm = None
+        self.offline_available = False
         
-        # Initialize offline LLM
-        self.offline_llm = Llama(
-            model_path=self.config.OFFLINE_LLM_PATH,
-            n_ctx=self.config.LLM_CONTEXT_LENGTH,
-            n_threads=4,  # Use 4 threads for better performance
-            verbose=False
-        )
+        # Initialize offline LLM with error handling
+        try:
+            import os
+            if os.path.exists(self.config.OFFLINE_LLM_PATH):
+                self.offline_llm = Llama(
+                    model_path=self.config.OFFLINE_LLM_PATH,
+                    n_ctx=self.config.LLM_CONTEXT_LENGTH,
+                    n_threads=4,  # Use 4 threads for better performance
+                    verbose=False
+                )
+                self.offline_available = True
+                print("Offline LLM loaded successfully")
+            else:
+                print(f"Warning: Offline LLM model not found at {self.config.OFFLINE_LLM_PATH}")
+        except Exception as e:
+            print(f"Warning: Could not load offline LLM: {e}")
+            print("Will use online LLM only")
         
         # Online LLM settings
         self.online_providers = {
@@ -46,18 +59,25 @@ class LLMProcessor:
     
     def query_offline(self, query, context):
         """Query offline LLM"""
-        prompt = self.build_prompt(query, context)
+        if not self.offline_available or not self.offline_llm:
+            raise Exception("Offline LLM not available")
         
-        response = self.offline_llm(
-            prompt,
-            max_tokens=150,
-            temperature=0.7,
-            top_p=0.9,
-            echo=False,
-            stop=["Human:", "AI:"]
-        )
-        
-        return response['choices'][0]['text'].strip()
+        try:
+            prompt = self.build_prompt(query, context)
+            
+            response = self.offline_llm(
+                prompt,
+                max_tokens=150,
+                temperature=0.7,
+                top_p=0.9,
+                echo=False,
+                stop=["Human:", "AI:"]
+            )
+            
+            return response['choices'][0]['text'].strip()
+        except Exception as e:
+            print(f"Error querying offline LLM: {e}")
+            raise
     
     def query_online(self, query, context):
         """Query online LLM"""
